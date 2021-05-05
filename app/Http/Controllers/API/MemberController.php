@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Member;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class MemberController extends Controller
 {
@@ -15,6 +16,7 @@ class MemberController extends Controller
      */
     public function index()
     {
+        $id_user=Auth::user()->id;
         $member =Member::all();
         $return['page']=1;
         $return['per_page']=3;
