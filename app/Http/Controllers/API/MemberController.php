@@ -16,7 +16,6 @@ class MemberController extends Controller
      */
     public function index()
     {
-        $id_user=Auth::user()->id;
         $member =Member::all();
         $return['page']=1;
         $return['per_page']=3;
@@ -44,22 +43,28 @@ class MemberController extends Controller
      */
     public function store(Request $request)
     {
-        $return['success']=false;
-        $return['id']=0;
-        $return['message']="ERR";
         $validatedData =$request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
             'avatar' => 'required',
-          ]);
-        $member=Member::create($validatedData);
-        if($member){
+        ]);
+        try{
+            $member=Member::create($validatedData);
             $return['success']=true;
             $return['id']=$member->id;
             $return['message']="Data Saved";
+            return response()->json($return);
+        }catch (\Exception $e) {
+            return response()->json([
+                'success'=>false,
+                'message'=>'Err',
+                'errors'=>array(
+                    'first_name'=>[$e->getMessage()]
+                )
+                ],422);
         }
-        return response()->json($return);
+
     }
 
     /**
@@ -91,25 +96,32 @@ class MemberController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
     public function update(Request $request, $id)
     {
-        $return['success']=false;
-        $return['id']=0;
-        $return['message']="ERR";
+        //dd($request);
         $validatedData =$request->validate([
             'first_name' => 'required',
             'last_name' => 'required',
             'email' => 'required',
             'avatar' => 'required',
-          ]);
-        $member=Member::findid($id);
-        $member->update($validatedData);
-        if($member){
+        ]);
+        try{
+            $member=Member::find($id);
+            $member->update($validatedData);
             $return['success']=true;
             $return['id']=$member->id;
             $return['message']="Data Saved";
+            return response()->json($return);
+        }catch (\Exception $e) {
+            return response()->json([
+                'success'=>false,
+                'message'=>'Err',
+                'errors'=>array(
+                    'first_name'=>[$e->getMessage()]
+                )
+                ],422);
         }
-        return response()->json($return);
     }
 
     /**
@@ -120,6 +132,17 @@ class MemberController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try{
+            $member=Member::find($id);
+            $member->delete();
+            $return['success']=true;
+            $return['id']=$member->id;
+            $return['message']="Data Deleted";
+            return response()->json($return);
+        }catch (\Exception $e) {
+            return response()->json([
+                'message'=>$e->getMessage(),
+                ],422);
+        }
     }
 }
