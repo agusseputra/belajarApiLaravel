@@ -48,6 +48,7 @@ class MemberController extends Controller
             'last_name' => 'required',
             'email' => 'required',
             'avatar' => 'required',
+            'gender'=>'required'
         ]);
         try{
             $member=Member::create($validatedData);
@@ -105,6 +106,7 @@ class MemberController extends Controller
             'last_name' => 'required',
             'email' => 'required',
             'avatar' => 'required',
+            'gender'=>'required'
         ]);
         try{
             $member=Member::find($id);
