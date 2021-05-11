@@ -77,6 +77,7 @@
         </nav>
 
         <main class="py-4">
+
             <div class="container px-6 mx-auto grid bg-white m-2 p-10">
                 <div id="app"></div>
             </div>

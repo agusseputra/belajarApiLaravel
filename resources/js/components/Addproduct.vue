@@ -55,6 +55,7 @@
                                         </div>
                                     </div>
                                     <div class="form-group">
+                                        <router-link :to="{name: 'product'}" class="btn btn-default">Batal</router-link>
                                         <button type="submit" class="btn btn-primary">SAVE</button>
                                     </div>
                                 </div>
