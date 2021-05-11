@@ -23,8 +23,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 });
 Route::resource('member', MemberController::class);
 Route::post('/member/{id}',[MemberController::class,'update']);
+
+Route::group(['middleware'=>'auth:sanctum'], function () {
+    Route::resource('member', MemberController::class);
 Route::resource('product', ProductController::class);
 Route::post('/product/{id}',[ProductController::class,'update']);
-// Route::group(['middleware'=>'auth:sanctum'], function () {
-//     Route::resource('member', MemberController::class);
-// });
+});

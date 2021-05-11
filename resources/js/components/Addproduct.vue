@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h2>Add Product</h2>
+        <h2>Add Product s</h2>
         <form @submit.prevent="saveData" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-lg-6">

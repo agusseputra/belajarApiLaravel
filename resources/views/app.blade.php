@@ -77,7 +77,7 @@
         </nav>
 
         <main class="py-4">
-
+                <a href="/vue/product" class="nav-item nav-link">Products List</a>
             <div class="container px-6 mx-auto grid bg-white m-2 p-10">
                 <div id="app"></div>
             </div>

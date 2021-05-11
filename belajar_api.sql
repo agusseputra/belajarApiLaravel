@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 07, 2021 at 02:39 AM
+-- Generation Time: May 11, 2021 at 07:08 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 7.4.13
 
@@ -20,6 +20,28 @@ SET time_zone = "+00:00";
 --
 -- Database: `belajar_api`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE `categories` (
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `category` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` set('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`category_id`, `category`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Makanan Ringan', 'Y', NULL, NULL),
+(2, 'Minuman', 'Y', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -59,8 +81,8 @@ CREATE TABLE `members` (
 --
 
 INSERT INTO `members` (`id`, `first_name`, `last_name`, `email`, `avatar`, `gender`, `updated_at`, `created_at`) VALUES
-(24, 'Agus', 'Seputra', 'agus.seput@gmail.com', 'av1.png', 'L', '2021-05-07 00:35:48', '2021-05-06 13:27:16'),
-(26, 'Gede', 'Praditya', 'praditya@gmail.com', 'av1.png', 'L', '2021-05-07 00:36:14', '2021-05-07 00:36:14');
+(26, 'Gede', 'Praditya', 'praditya@gmail.com', 'av1.png', 'L', '2021-05-07 00:36:14', '2021-05-07 00:36:14'),
+(27, 'Putra', '88', 'agus.seputa', 'av1.png', 'L', '2021-05-07 06:37:16', '2021-05-07 06:37:16');
 
 -- --------------------------------------------------------
 
@@ -82,7 +104,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
-(4, '2019_12_14_000001_create_personal_access_tokens_table', 1);
+(4, '2019_12_14_000001_create_personal_access_tokens_table', 1),
+(5, '2021_05_10_112305_create_products_table', 2),
+(6, '2021_05_10_112404_create_categories_table', 2);
 
 -- --------------------------------------------------------
 
@@ -124,6 +148,34 @@ INSERT INTO `personal_access_tokens` (`id`, `tokenable_type`, `tokenable_id`, `n
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `products`
+--
+
+CREATE TABLE `products` (
+  `product_id` bigint(20) UNSIGNED NOT NULL,
+  `category_id` bigint(20) UNSIGNED NOT NULL,
+  `code` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `cover` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `status` set('Y','N') COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `products`
+--
+
+INSERT INTO `products` (`product_id`, `category_id`, `code`, `name`, `description`, `cover`, `status`, `created_at`, `updated_at`) VALUES
+(13, 2, '009', 'Buavita', 'Rasa Guava', 'covers/1620696132packshot_mobile-467x586-01.png', 'Y', '2021-05-10 17:21:50', '2021-05-10 17:22:12'),
+(14, 1, '002', 'Lays', 'Lays Rumput Laut', 'covers/1620696246lays.jpg', 'Y', '2021-05-10 17:24:06', '2021-05-10 17:24:06'),
+(15, 1, 'C001', 'Citato', 'Balado Max', 'covers/1620700375IMG20200910112501-removebg-preview.png', 'Y', '2021-05-10 18:30:19', '2021-05-10 18:32:55'),
+(16, 1, '002', 'Buavita 23', 'Buavita Guava', 'covers/1620706842IMG20200910112501-removebg-preview.png', 'Y', '2021-05-10 19:41:07', '2021-05-10 20:20:42');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -148,6 +200,12 @@ INSERT INTO `users` (`id`, `name`, `email`, `email_verified_at`, `password`, `re
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
+  ADD PRIMARY KEY (`category_id`);
 
 --
 -- Indexes for table `failed_jobs`
@@ -183,6 +241,12 @@ ALTER TABLE `personal_access_tokens`
   ADD KEY `personal_access_tokens_tokenable_type_tokenable_id_index` (`tokenable_type`,`tokenable_id`);
 
 --
+-- Indexes for table `products`
+--
+ALTER TABLE `products`
+  ADD PRIMARY KEY (`product_id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -194,6 +258,12 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `category_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -203,19 +273,25 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `members`
 --
 ALTER TABLE `members`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `personal_access_tokens`
 --
 ALTER TABLE `personal_access_tokens`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `products`
+--
+ALTER TABLE `products`
+  MODIFY `product_id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `users`
