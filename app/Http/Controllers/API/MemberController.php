@@ -59,7 +59,7 @@ class MemberController extends Controller
         }catch (\Exception $e) {
             return response()->json([
                 'success'=>false,
-                'message'=>'Err',
+                'message'=>$e->getMessage(),
                 'errors'=>array(
                     'first_name'=>[$e->getMessage()]
                 )

@@ -10,14 +10,15 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}" defer></script>
+
+    <script src="{{ mix('js/app.js') }}" defer="defer"></script>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('css/app.css') }}" rel="stylesheet">
 </head>
 <body>
     <div >
@@ -76,7 +77,9 @@
         </nav>
 
         <main class="py-4">
-            @yield('content')
+            <div class="container px-6 mx-auto grid bg-white m-2 p-10">
+                <div id="app"></div>
+            </div>
         </main>
     </div>
 </body>
