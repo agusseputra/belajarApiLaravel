@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\MemberController;
+use App\Http\Controllers\API\PetaniController;
 use App\Http\Controllers\API\ProductController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -22,8 +23,9 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 Route::resource('member', MemberController::class);
+Route::resource('petani', PetaniController::class);
 Route::post('/member/{id}',[MemberController::class,'update']);
-
+//Route::get('petani',[PetaniController::class,'index']);
 Route::group(['middleware'=>'auth:sanctum'], function () {
     Route::resource('member', MemberController::class);
 Route::resource('product', ProductController::class);
